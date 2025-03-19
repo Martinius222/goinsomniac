@@ -27,7 +27,7 @@ func preventSleep() *exec.Cmd {
 
 func usageBar(usage float64) string {
 	filled := int(usage / 100 * float64(barLength))
-	return "[" + strings.Repeat("█", filled) + strings.Repeat("-", barLength-filled) + "]"
+	return "‖" + strings.Repeat("■", filled) + strings.Repeat("-", barLength-filled) + "‖"
 }
 
 func formatUsage(label string, percentageWidth int, value float64) string {
@@ -50,9 +50,9 @@ func getBatteryLevel() (float64, string) {
 		level := batteries[0].Current / batteries[0].Full * 100
 		status := "🔋 Discharging"
 		if batteries[0].State.String() == battery.Charging.String() {
-			status = "⚡ Charging"
+			status = "⚡ Charging   "
 		} else if batteries[0].State.String() == battery.Full.String() {
-			status = "✅ Full"
+			status = "✅ Full    "
 		}
 		return level, status
 	}
@@ -112,9 +112,9 @@ func main() {
 			fmt.Println(formatUsage("💻 CPU", 20, cpuPercent[0]))
 			fmt.Println(formatUsage("🖥  RAM", 20, vmStat.UsedPercent))
 			fmt.Println(formatUsage("💾 Disk", 19, diskUsage))
-			fmt.Printf("\n🌐 Upload:   %*.*f KB/s\n", percentageWidthConst, 2, uploadSpeed)
-			fmt.Printf("🌐 Download: %*.*f KB/s\n", 21, 2, downloadSpeed)
-			fmt.Printf("🔋 Battery:  %*.*f%%  %s\n", 15, 2, batteryLevel, batteryStatus)
+			fmt.Printf("\n🌐 Upload:   %*.*f KB/s\n", 19, 2, uploadSpeed)
+			fmt.Printf("🌐 Download: %*.*f KB/s\n", 19, 2, downloadSpeed)
+			fmt.Printf("\n🔋 Battery:  %*.*f%%  %s\n", 15, 2, batteryLevel, batteryStatus)
 
 			time.Sleep(1 * time.Second)
 		}
